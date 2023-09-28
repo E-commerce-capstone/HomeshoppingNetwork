@@ -1,11 +1,19 @@
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './AuthContext';
+import { CartProvider } from './component/CartContext'; 
 import App from './App';
-import SignUp from './SignUp';
+import SignUp from './component/SignUp';
 import './index.css';
-import Carts from './carts';
+import ShoppingCart from './component/ShoppingCart';
+import Login from './component/Login';
+
+const secretKey = process.env.REACT_APP_SECRET_KEY;
+
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 const root = createRoot(document.getElementById('root'));
 
@@ -13,11 +21,14 @@ root.render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
-        <Routes>
-          <Route path="/" element={<App />} key="home"/>
-          <Route path="/signup" element={<SignUp />} key="signup" />
-          <Route path="/carts" element={<Carts />} key="carts"/>
-        </Routes>
+        <CartProvider> 
+          <Routes>
+            <Route path="/" element={<App />} key="home" />
+            <Route path="/login" element={<Login />} key="login" />
+            <Route path="/signup" element={<SignUp />} key="signup" />
+            <Route path="/carts" element={<ShoppingCart />} key="carts" />
+          </Routes>
+        </CartProvider>
       </AuthProvider>
     </Router>
   </React.StrictMode>

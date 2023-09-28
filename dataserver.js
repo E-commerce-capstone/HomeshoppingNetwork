@@ -1,7 +1,16 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 3001; // Choose an available port
+const port = 3000; // Choose an available port
+const cors = require('cors'); // Import the cors middleware
+
+app.use(cors(corsOptions));
+
+
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 app.use(express.json());
 
@@ -19,4 +28,8 @@ app.get('/api/data', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Data fetching server is running on port ${port}`);
+});
+app.use(cors(corsOptions));
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

@@ -1,18 +1,21 @@
 .product-list {
     display: flex;
+    margin: 20px;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: -10px;
+    margin-left: 30px;
   }
   
   .product {
     width: calc(33.33% - 20px);
     padding: 10px;
-    margin-bottom: 20px;
+    margin-top: 60px;
     box-sizing: border-box;
-    margin: 10px;
     border: 1px solid #ccc;
     text-align: center;
+    font-size: 1vw;
+    flex: 2;
+    transition: flex-direction 0.3s ease;
   }
   
   .product img {
@@ -20,22 +23,176 @@
     height: auto;
   }
   
-  .navigation {
+  .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #333;
-    color: white;
+    color: rgb(242, 230, 230);
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     padding: 10px 0;
-  }
-  
-  .navigation a {
+    height: fit-content;
     text-decoration: none;
-    color: white;
+    color: rgb(28, 7, 7);
+    list-style-type: none;
   }
-  
-  
-  
+
+
+  .navbar ul {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+  }
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+}
+
+a {
+  color: red; /* Default link color */
+  text-decoration: none; /* Remove underlines by default */
+}
+
+a:hover {
+  color: blue; /* Link color on hover */
+}
+
+a:visited {
+  color: rgb(159, 170, 159); /* Visited link color */
+}
+
+a:active {
+  color: purple; /* Active link color (when clicked) */
+}
+
+ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.item-image img {
+  width: 100px;
+  height: auto; 
+  margin-right: 10px;
+}
+
+.item-details {
+  text-align: left;
+}
+.item-price {
+  margin-right: 10px; 
+}
+
+.sidebar{
+  width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #131212;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #fff;
+  transition: left 0.3s ease-in-out;
+}
+form {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+.sidebar.open {
+  display: flexbox;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  width: fit-content;
+  background: rgba(12, 8, 8, 0.5)
+
+}
+.sidebar-toggle {
+  position: fixed;
+  top: 20px;
+  left: 0px;
+  cursor: pointer;
+  z-index: 1; 
+}
+.sidebar.open ul {
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between; 
+  height: 50%; 
+}
+
+.sidebar.open ul li {
+  margin: 0; 
+}
+
+.toggle-button {
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1; 
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #222;
+}
+
+.login-header {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.category-container {
+  text-align: left; 
+  margin-top: 20px;
+}
+
+.categories {
+  list-style-type: none; 
+  padding: 0;
+}
+
+
+.category.selected {
+  background-color: #511e1e; 
+}
+
+.category:hover {
+  background-color: #7f2323; 
+}
+
+@media screen and (max-width: 768px) {
+  .product-list {
+    flex-direction: column; 
+  }}
+
+  .product {
+    flex: none;
+  }

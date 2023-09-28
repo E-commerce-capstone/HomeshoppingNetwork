@@ -2,29 +2,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const app = express();
+const port = 4000;
+const corsMiddleware = require('./cors');
+const authenticateToken = require('./middleware/authenticate');
+
+
 app.use(bodyParser.json());
 
 const SECRET_KEY = 'your-secret-key'; // Replace with your actual secret key
+// server.js
 
-const users = [
-  { id: 1, username: 'user1', password: 'password1' },
-  // Add more user objects here
-];
 
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  const user = users.find(user => user.username === username && user.password === password);
-  
-  if (!user) {
-    return res.status(401).json({ message: 'Invalid credentials' });
-  }
+app.use(corsMiddleware);
 
-  const token = jwt.sign({ id: user.id }, SECRET_KEY);
-  res.json({ token });
+// Protected route
+app.get('/protected', authenticateToken, (req, res) => {
+  res.json({ message: 'This route is protected.' });
 });
 
-// Add more routes for registration and token validation
-
-app.listen(4000, () => {
-  console.log('Server is running on port 4000');
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

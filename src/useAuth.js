@@ -1,5 +1,7 @@
+// useAuth.js
+
 import { useContext } from 'react';
-import { AuthContext } from './AuthContext'; // Import AuthContext
+import AuthContext from './AuthContext';
 
 function useAuth() {
   const authContext = useContext(AuthContext);
@@ -8,7 +10,9 @@ function useAuth() {
     throw new Error('useAuth must be used within an AuthProvider');
   }
 
-  return authContext;
+  const isAuthenticated = () => !!authContext.user;
+
+  return { ...authContext, isAuthenticated };
 }
 
 export default useAuth;
