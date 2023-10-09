@@ -187,6 +187,30 @@ form {
 .category:hover {
   background-color: #7f2323; 
 }
+.slideshow-container {
+  position: relative;
+  width: 100%S;
+  max-width: fit-content;
+  margin: auto;
+  margin-top: 100px; 
+  overflow: hidden;
+}
+
+.slide {
+  display: none;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+  display: block;
+  opacity: 1;
+}
+.slide img {
+  width: auto;
+  height: auto;
+}
+
 
 @media screen and (max-width: 768px) {
   .product-list {

@@ -9,7 +9,7 @@ import Greeting from './Greeting';
 
 
 
-function SidebarNavbar({ fetchProductsByCategory }) {
+function SidebarNavbar({ fetchProductsByCategory, sortDescending , sortAscending }) {
   const { isAuthenticated, logout } = useAuth();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [fetchedCategories, setFetchedCategories] = useState([]);
@@ -36,7 +36,7 @@ function SidebarNavbar({ fetchProductsByCategory }) {
 
   return (
     <div className="sidebar-navbar-container">
-   
+  
       {isSidebarOpen && (
         <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
       
@@ -47,6 +47,9 @@ function SidebarNavbar({ fetchProductsByCategory }) {
               </li>
             ))}
           </ul>
+          <div>  <button onClick={sortDescending}>$$$ - $</button>
+          <button onClick={sortAscending}>$ - $$$</button>
+</div>
           <div className="sidebar-bottom">
             <ul>
               <li>

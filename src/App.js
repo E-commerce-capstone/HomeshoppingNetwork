@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import ProductDetail from './component/ProductDetail';
-
 import SidebarNavbar from './component/SidebarNavbar';
+import image1  from './component/slideshow/image1.jpeg';
+import image2 from './component/slideshow/image2.jpeg';
+import image3 from './component/slideshow/image3.jpeg';
+import image4 from './component/slideshow/image4.jpeg';
+import image5 from './component/slideshow/image5.jpeg';
+import ProductsList from './component/ProductsList';
+import Slideshow from './component/Slideshow';
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -13,11 +19,20 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [showProducts, setShowProducts] = useState(false);
+  const [slideshowImages, setSlideshowImages] = useState ([image1, image2, image3, image4, image5]);
+  const navigate = useNavigate();
 
+  const handleShopClick = () => {
+    setShowProducts(true);
+    navigate('/products');
+  };
+  
+  
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products/categories')
@@ -52,6 +67,10 @@ function App() {
     const sorted = [...products].sort((a, b) => b.price - a.price);
     setSortedProducts(sorted);
   };
+  const sortAscending = () => {
+    const sorted = [...products].sort((a, b) => a.price - b.price);
+    setSortedProducts(sorted);
+  };
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
@@ -59,27 +78,50 @@ function App() {
 
 
   return (
-      <div className="main-container">
-  <SidebarNavbar fetchProductsByCategory={fetchProductsByCategory}/>
-        <button onClick={sortDescending}>Sort Descending</button>
-        <div className="product-list">
-          {sortedProducts
-            .filter((product) => !selectedCategory || selectedCategory === 'All' || product.category === selectedCategory)
-            .map((product) => (
-              <div key={`product-${product.id}`} className="product">
-                <img src={product.image} alt={product.title} />
-                <h2>{product.title}</h2>
-                <p>Price: ${product.price}</p>
-                <button onClick={() => handleProductClick(product)}>Details</button>
-                {selectedProduct && selectedProduct.id === product.id && (
-                  <ProductDetail product={selectedProduct} />
-                )}
-              </div>
-            ))}
+    <div className="main-container">
+      {!showProducts && (
+        <div className="slideshow-container">
+          <Slideshow images={slideshowImages} />
+          {!showProducts && (
+        <Link to="#" className="shop-link" onClick={handleShopClick}>
+          Shop
+        </Link>
+      )}
+
         </div>
-      </div>
-  
+      )}
+
+   
+  <SidebarNavbar fetchProductsByCategory={fetchProductsByCategory} 
+  sortDescending={sortDescending} 
+  sortAscending={sortAscending}/>
+
+
+  {showProducts && (
+        
+          <div className="product-list">
+            {sortedProducts
+              .filter((product) => !selectedCategory || selectedCategory === 'All' || product.category === selectedCategory)
+              .map((product) => (
+                <div key={`product-${product.id}`} className="product">
+                  <img src={product.image} alt={product.title} />
+                  <h2>{product.title}</h2>
+                  <p>Price: ${product.price}</p>
+                  <button onClick={() => handleProductClick(product)}>Details</button>
+                  {selectedProduct && selectedProduct.id === product.id && (
+                    <ProductDetail product={selectedProduct} />
+                  )}
+                </div>
+              ))}
+          </div>
+       
+      )}
+    </div>
   );
 }
+
+
+      
+
 
 export default App;

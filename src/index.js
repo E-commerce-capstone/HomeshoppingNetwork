@@ -9,6 +9,7 @@ import SignUp from './component/SignUp';
 import './index.css';
 import ShoppingCart from './component/ShoppingCart';
 import Login from './component/Login';
+import ProductsList from './component/ProductsList';
 
 const secretKey = process.env.REACT_APP_SECRET_KEY;
 
@@ -27,6 +28,7 @@ root.render(
             <Route path="/login" element={<Login />} key="login" />
             <Route path="/signup" element={<SignUp />} key="signup" />
             <Route path="/carts" element={<ShoppingCart />} key="carts" />
+            <Route path="/products" element={<ProductsList />} />
           </Routes>
         </CartProvider>
       </AuthProvider>
